@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>Projeto de Emiss&otilde;es - Estudo da efici&ecirc;ncia de Froude</title>
 <meta name="generator" content="MATLAB 23.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2025-01-30">
+<meta name="DC.date" content="2025-01-31">
 <meta name="DC.source" content="Eficiencia_Froude.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -202,11 +202,19 @@ T3s = T2*(p3/p2)^((kf-1)/kf);
 </pre>
 <h2 id="4">Plots</h2>
 <pre class="codeinput">figure()
-plot(eta_j, Thrust./m_poluentes)
-ylabel(<span class="string">'Thrust/massa dos poluentes (N/kg/s)'</span>);
+plot(eta_j,Thrust)
 xlabel(<span class="string">'Efici&ecirc;ncia de Froude'</span>);
-title(<span class="string">'Efeito da efici&ecirc;ncia de Froude na propor&ccedil;&atilde;o Thrust por kg de poluente'</span>)
-xlim([0.3,0.5])
+ylabel(<span class="string">'Thrust (N)'</span>);
+title(<span class="string">'Efeito da efici&ecirc;ncia de Froude no Thrust'</span>)
+xlim([0.2,1])
+ylim([0,30000])
+
+figure()
+plot(eta_j,m_poluentes)
+xlabel(<span class="string">'Efici&ecirc;ncia de Froude'</span>);
+ylabel(<span class="string">'Massa de Poluentes (kg/s)'</span>);
+title(<span class="string">'Efeito da efici&ecirc;ncia de Froude na produ&ccedil;&atilde;o de poluentes'</span>)
+xlim([0.2,1])
 
 figure()
 plot(eta_j, m_fuel)
@@ -216,11 +224,18 @@ title(<span class="string">'Efeito da efici&ecirc;ncia de Froude no consumo de c
 xlim([0.2,1])
 
 figure()
-plot(eta_j,Thrust)
+plot(eta_j, Thrust./m_poluentes)
+ylabel(<span class="string">'Thrust/massa dos poluentes (N/kg/s)'</span>);
 xlabel(<span class="string">'Efici&ecirc;ncia de Froude'</span>);
-ylabel(<span class="string">'Thrust (N)'</span>);
-title(<span class="string">'Efeito da efici&ecirc;ncia de Froude no Thrust'</span>)
-xlim([0.15,1])
+title(<span class="string">'Ef. de Froude vs Thrust por kg de poluente por seg'</span>)
+xlim([0.3,0.5])
+
+figure()
+plot(eta_j, Thrust./m_fuel)
+ylabel(<span class="string">'Thrust/consumo de combust&iacute;vel (N/kg/s)'</span>);
+xlabel(<span class="string">'Efici&ecirc;ncia de Froude'</span>);
+title(<span class="string">'Ef. de Froude vs Thrust por kg de fuel por seg'</span>)
+xlim([0.3,0.5])
 
 figure()
 plot(eta_j,eta_thermal)
@@ -236,21 +251,30 @@ ylabel(<span class="string">'Efici&ecirc;ncia Total'</span>);
 title(<span class="string">'Efeito da efici&ecirc;ncia de Froude na efici&ecirc;ncia total'</span>)
 ylim([-5,5])
 
-figure()
-plot(eta_j,m_poluentes)
-xlabel(<span class="string">'Efici&ecirc;ncia de Froude'</span>);
-ylabel(<span class="string">'Massa de Poluentes (kg/s)'</span>);
-title(<span class="string">'Efeito da efici&ecirc;ncia de Froude na produ&ccedil;&atilde;o de poluentes'</span>)
-xlim([0.2,1])
+<span class="comment">% Gr&aacute;ficos n&atilde;o inclu&iacute;dos no projeto</span>
 
 figure()
 plot(T4,m_NOX)
 xlabel(<span class="string">'Temperatura &agrave; entrada da Turbina (K)'</span>);
 ylabel(<span class="string">'Massa de NOx (kg/s)'</span>);
-title(<span class="string">'Efeito da Temperatura &agrave; entrada da turbina na produ&ccedil;&atilde;o de NOx'</span>)
+title(<span class="string">'Efeito da Temperatura T_4 na produ&ccedil;&atilde;o de NOx'</span>)
 xlim([0,1700])
+
+figure()
+loglog(eta_j,T4)
+xlabel(<span class="string">'Efici&ecirc;ncia de Froude'</span>);
+ylabel(<span class="string">'T4 (K)'</span>);
+title(<span class="string">'Efeito da efici&ecirc;ncia de Froude na Temperatura T_4'</span>)
+xlim([0.1,1])
+
+figure()
+loglog(eta_j,m_NOX)
+xlabel(<span class="string">'Efici&ecirc;ncia de Froude'</span>);
+ylabel(<span class="string">'Massa de NOx (kg/s)'</span>);
+title(<span class="string">'Efeito da efici&ecirc;ncia de Froude na produ&ccedil;&atilde;o de NOx'</span>)
+xlim([0.1,1])
 </pre>
-<img vspace="5" hspace="5" src="Eficiencia_Froude_01.png" alt=""> <img vspace="5" hspace="5" src="Eficiencia_Froude_02.png" alt=""> <img vspace="5" hspace="5" src="Eficiencia_Froude_03.png" alt=""> <img vspace="5" hspace="5" src="Eficiencia_Froude_04.png" alt=""> <img vspace="5" hspace="5" src="Eficiencia_Froude_05.png" alt=""> <img vspace="5" hspace="5" src="Eficiencia_Froude_06.png" alt=""> <img vspace="5" hspace="5" src="Eficiencia_Froude_07.png" alt=""> <p class="footer">
+<img vspace="5" hspace="5" src="Eficiencia_Froude_01.png" alt=""> <img vspace="5" hspace="5" src="Eficiencia_Froude_02.png" alt=""> <img vspace="5" hspace="5" src="Eficiencia_Froude_03.png" alt=""> <img vspace="5" hspace="5" src="Eficiencia_Froude_04.png" alt=""> <img vspace="5" hspace="5" src="Eficiencia_Froude_05.png" alt=""> <img vspace="5" hspace="5" src="Eficiencia_Froude_06.png" alt=""> <img vspace="5" hspace="5" src="Eficiencia_Froude_07.png" alt=""> <img vspace="5" hspace="5" src="Eficiencia_Froude_08.png" alt=""> <img vspace="5" hspace="5" src="Eficiencia_Froude_09.png" alt=""> <img vspace="5" hspace="5" src="Eficiencia_Froude_10.png" alt=""> <p class="footer">
 <br>
 <a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
 <br>
@@ -374,11 +398,19 @@ end
 %% Plots
 
 figure()
-plot(eta_j, Thrust./m_poluentes)
-ylabel('Thrust/massa dos poluentes (N/kg/s)');
+plot(eta_j,Thrust)
 xlabel('Eficiência de Froude');
-title('Efeito da eficiência de Froude na proporção Thrust por kg de poluente')
-xlim([0.3,0.5])
+ylabel('Thrust (N)');
+title('Efeito da eficiência de Froude no Thrust')
+xlim([0.2,1])
+ylim([0,30000])
+
+figure()
+plot(eta_j,m_poluentes)
+xlabel('Eficiência de Froude');
+ylabel('Massa de Poluentes (kg/s)');
+title('Efeito da eficiência de Froude na produção de poluentes')
+xlim([0.2,1])
 
 figure()
 plot(eta_j, m_fuel)
@@ -388,11 +420,18 @@ title('Efeito da eficiência de Froude no consumo de combustível')
 xlim([0.2,1])
 
 figure()
-plot(eta_j,Thrust)
+plot(eta_j, Thrust./m_poluentes)
+ylabel('Thrust/massa dos poluentes (N/kg/s)');
 xlabel('Eficiência de Froude');
-ylabel('Thrust (N)');
-title('Efeito da eficiência de Froude no Thrust')
-xlim([0.15,1])
+title('Ef. de Froude vs Thrust por kg de poluente por seg')
+xlim([0.3,0.5])
+
+figure()
+plot(eta_j, Thrust./m_fuel)
+ylabel('Thrust/consumo de combustível (N/kg/s)');
+xlabel('Eficiência de Froude');
+title('Ef. de Froude vs Thrust por kg de fuel por seg')
+xlim([0.3,0.5])
 
 figure()
 plot(eta_j,eta_thermal)
@@ -408,19 +447,28 @@ ylabel('Eficiência Total');
 title('Efeito da eficiência de Froude na eficiência total')
 ylim([-5,5])
 
-figure()
-plot(eta_j,m_poluentes)
-xlabel('Eficiência de Froude');
-ylabel('Massa de Poluentes (kg/s)');
-title('Efeito da eficiência de Froude na produção de poluentes')
-xlim([0.2,1])
+% Gráficos não incluídos no projeto
 
 figure()
 plot(T4,m_NOX)
 xlabel('Temperatura à entrada da Turbina (K)');
 ylabel('Massa de NOx (kg/s)');
-title('Efeito da Temperatura à entrada da turbina na produção de NOx')
+title('Efeito da Temperatura T_4 na produção de NOx')
 xlim([0,1700])
+
+figure()
+loglog(eta_j,T4)
+xlabel('Eficiência de Froude');
+ylabel('T4 (K)');
+title('Efeito da eficiência de Froude na Temperatura T_4')
+xlim([0.1,1])
+
+figure()
+loglog(eta_j,m_NOX)
+xlabel('Eficiência de Froude');
+ylabel('Massa de NOx (kg/s)');
+title('Efeito da eficiência de Froude na produção de NOx')
+xlim([0.1,1])
 
 ##### SOURCE END #####
 -->
